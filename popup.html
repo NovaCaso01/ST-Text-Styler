@@ -1,0 +1,333 @@
+<!-- 텍스트 꾸미기 (ST-Text-Styler) 팝업 UI v2.3 - 탭 구조 -->
+<div id="word-hider-popup">
+    <div id="word-hider-popup-overlay"></div>
+    
+    <div class="hider-popup-content">
+        <!-- 헤더 -->
+        <div class="hider-header">
+            <h3><i class="fa-solid fa-wand-magic-sparkles"></i> 텍스트 꾸미기</h3>
+            <button id="hider-close-btn" title="닫기">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+        
+        <!-- 메인 탭 네비게이션 -->
+        <div class="hider-main-tabs">
+            <button class="hider-main-tab active" data-maintab="hider">
+                <i class="fa-solid fa-eye-slash"></i> 단어가리기
+            </button>
+            <button class="hider-main-tab" data-maintab="htmlgen">
+                <i class="fa-solid fa-wand-magic-sparkles"></i> 글꾸미기
+            </button>
+        </div>
+        
+        <!-- 바디 -->
+        <div class="hider-body">
+            
+            <!-- ========== 단어가리기 탭 ========== -->
+            <div class="hider-main-tab-content active" id="maintab-hider">
+                
+                <!-- 활성화 토글 -->
+                <div class="hider-section hider-section-main">
+                    <div class="hider-toggle-row">
+                        <div class="hider-toggle-info">
+                            <span class="hider-toggle-title">확장 활성화</span>
+                            <span class="hider-toggle-desc">끄면 단어 가리기가 적용되지 않습니다</span>
+                        </div>
+                        <label class="hider-toggle">
+                            <input type="checkbox" id="hider-enabled" />
+                            <span class="hider-toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- 규칙 관리 -->
+                <div class="hider-section">
+                    <h4><i class="fa-solid fa-list"></i> 규칙 관리</h4>
+                    
+                    <!-- 서브 탭 버튼 -->
+                    <div class="hider-tab-buttons">
+                        <button class="hider-tab-btn active" data-tab="global">
+                            <i class="fa-solid fa-globe"></i> 글로벌
+                        </button>
+                        <button class="hider-tab-btn" data-tab="chat">
+                            <i class="fa-solid fa-comment"></i> 채팅방
+                            <span id="hider-chat-name-badge" class="hider-chat-badge"></span>
+                        </button>
+                    </div>
+                    
+                    <!-- 글로벌 규칙 목록 -->
+                    <div class="hider-tab-content" data-tab="global">
+                        <div id="hider-global-rules-list" class="hider-rules-list"></div>
+                    </div>
+                    
+                    <!-- 채팅방 규칙 목록 -->
+                    <div class="hider-tab-content" data-tab="chat" style="display: none;">
+                        <div id="hider-chat-rules-list" class="hider-rules-list"></div>
+                    </div>
+                </div>
+                
+                <!-- 새 단어 추가 -->
+                <div class="hider-section">
+                    <h4><i class="fa-solid fa-plus-circle"></i> 새 단어 추가</h4>
+                    
+                    <div class="hider-input-group">
+                        <label for="hider-word-input">가릴 단어/문장</label>
+                        <input type="text" id="hider-word-input" placeholder="예: 깡캐 등" />
+                    </div>
+                    
+                    <div class="hider-form-row">
+                        <div class="hider-input-group hider-flex-1">
+                            <label for="hider-hide-type">방식</label>
+                            <select id="hider-hide-type">
+                                <option value="color">색상</option>
+                                <option value="emoji">이모지</option>
+                                <option value="ascii">아스키아트</option>
+                                <option value="custom">직접 입력</option>
+                            </select>
+                        </div>
+                        
+                        <div id="hider-color-group" class="hider-input-group hider-flex-1">
+                            <label for="hider-color-picker">색상</label>
+                            <input type="color" id="hider-color-picker" value="#000000" />
+                        </div>
+                        
+                        <div id="hider-emoji-group" class="hider-input-group hider-flex-1" style="display: none;">
+                            <label for="hider-emoji-select">이모지</label>
+                            <select id="hider-emoji-select"></select>
+                        </div>
+                        
+                        <div id="hider-ascii-group" class="hider-input-group hider-flex-1" style="display: none;">
+                            <label for="hider-ascii-select">아스키아트</label>
+                            <select id="hider-ascii-select"></select>
+                        </div>
+                        
+                        <div id="hider-custom-group" class="hider-input-group hider-flex-1" style="display: none;">
+                            <label for="hider-custom-input">대체 텍스트</label>
+                            <input type="text" id="hider-custom-input" placeholder="대체 할 텍스트 입력" />
+                        </div>
+                    </div>
+                    
+                    <div class="hider-btn-row">
+                        <button id="hider-add-global-btn" class="hider-btn hider-btn-secondary">
+                            <i class="fa-solid fa-globe"></i> 글로벌 추가
+                        </button>
+                        <button id="hider-add-chat-btn" class="hider-btn hider-btn-secondary">
+                            <i class="fa-solid fa-comment"></i> 채팅방 추가
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- 메시지 복사 -->
+                <div class="hider-section">
+                    <h4><i class="fa-solid fa-copy"></i> 가린 채로 복사</h4>
+                    <p class="hider-section-hint">메시지 번호 범위 (0부터). 비워두면 전체</p>
+                    
+                    <div class="hider-form-row hider-form-row-center">
+                        <div class="hider-input-group">
+                            <label for="hider-copy-start">시작</label>
+                            <input type="number" id="hider-copy-start" min="0" placeholder="0" />
+                        </div>
+                        <div class="hider-input-group">
+                            <label for="hider-copy-end">끝</label>
+                            <input type="number" id="hider-copy-end" min="0" placeholder="끝" />
+                        </div>
+                    </div>
+                    
+                    <div class="hider-btn-row">
+                        <button id="hider-copy-btn" class="hider-btn hider-btn-secondary">
+                            <i class="fa-solid fa-clipboard"></i> 그대로 복사
+                        </button>
+                        <button id="hider-copy-clean-btn" class="hider-btn hider-btn-secondary">
+                            <i class="fa-solid fa-broom"></i> 태그 제외 복사
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- 빠른 가리기 -->
+                <div class="hider-section">
+                    <div class="hider-section-header">
+                        <h4><i class="fa-solid fa-bolt"></i> 빠른 가리기</h4>
+                        <label class="hider-toggle hider-toggle-sm">
+                            <input type="checkbox" id="hider-quick-enabled" checked />
+                            <span class="hider-toggle-slider"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="hider-form-row">
+                        <div class="hider-input-group hider-flex-1">
+                            <label for="hider-quick-type">방식</label>
+                            <select id="hider-quick-type">
+                                <option value="color">색상</option>
+                                <option value="emoji">이모지</option>
+                                <option value="ascii">아스키아트</option>
+                                <option value="custom">직접 입력</option>
+                            </select>
+                        </div>
+                        
+                        <div id="hider-quick-color-group" class="hider-input-group hider-flex-1">
+                            <label for="hider-quick-color">색상</label>
+                            <input type="color" id="hider-quick-color" value="#000000" />
+                        </div>
+                        
+                        <div id="hider-quick-emoji-group" class="hider-input-group hider-flex-1" style="display: none;">
+                            <label for="hider-quick-emoji">이모지</label>
+                            <select id="hider-quick-emoji"></select>
+                        </div>
+                        
+                        <div id="hider-quick-ascii-group" class="hider-input-group hider-flex-1" style="display: none;">
+                            <label for="hider-quick-ascii">아스키아트</label>
+                            <select id="hider-quick-ascii"></select>
+                        </div>
+                        
+                        <div id="hider-quick-custom-group" class="hider-input-group hider-flex-1" style="display: none;">
+                            <label for="hider-quick-custom">대체 텍스트</label>
+                            <input type="text" id="hider-quick-custom" placeholder="대체 할 텍스트 입력" />
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 테마 선택 -->
+                <div class="hider-section hider-section-last">
+                    <h4><i class="fa-solid fa-palette"></i> UI 테마</h4>
+                    
+                    <div class="hider-input-group">
+                        <label for="hider-ui-theme">컴러 테마</label>
+                        <select id="hider-ui-theme" class="hider-select">
+                            <option value="mono-gray">Mono Gray (모노 그레이)</option>
+                            <option value="dark-mono">Dark Mono (다크 모노)</option>
+                            <option value="dusty-rose">Dusty Rose (더스티 로즈)</option>
+                            <option value="ocean-breeze">Ocean Breeze (오션 브리즈)</option>
+                            <option value="matcha-garden">Matcha Garden (말차 가든)</option>
+                            <option value="strawberry-milk">Strawberry Milk (딸기 우유)</option>
+                            <option value="butter-cream">Butter Cream (버터 크림)</option>
+                        </select>
+                        
+                        <!-- 테마 팔레트 미리보기 -->
+                        <div class="hider-theme-preview" id="hider-theme-preview">
+                            <div class="hider-theme-swatch" data-color="bg-primary" title="배경"></div>
+                            <div class="hider-theme-swatch" data-color="bg-secondary" title="보조 배경"></div>
+                            <div class="hider-theme-swatch" data-color="bg-tertiary" title="강조 배경"></div>
+                            <div class="hider-theme-swatch" data-color="border" title="테두리"></div>
+                            <div class="hider-theme-swatch" data-color="accent" title="액센트"></div>
+                            <div class="hider-theme-swatch" data-color="text-primary" title="텍스트"></div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <!-- ========== 글꾸미기 탭 ========== -->
+            <div class="hider-main-tab-content" id="maintab-htmlgen">
+                
+                <div class="hider-section">
+                    <h4><i class="fa-solid fa-wand-magic-sparkles"></i> 글꾸미기 (AI)</h4>
+                    <p class="hider-section-hint">채팅을 게시글용 HTML로 변환합니다</p>
+                </div>
+                
+                <!-- 소스 선택 -->
+                <div class="hider-section">
+                    <h4><i class="fa-solid fa-file-alt"></i> 소스 선택</h4>
+                    
+                    <div class="hider-source-tabs">
+                        <button type="button" class="hider-source-tab active" data-source="range">
+                            <i class="fa-solid fa-list-ol"></i> 메시지 범위
+                        </button>
+                        <button type="button" class="hider-source-tab" data-source="custom">
+                            <i class="fa-solid fa-keyboard"></i> 직접 입력
+                        </button>
+                    </div>
+                    
+                    <!-- 메시지 범위 입력 -->
+                    <div id="htmlgen-range-group" class="hider-form-row hider-form-row-center">
+                        <div class="hider-input-group">
+                            <label for="htmlgen-start">시작</label>
+                            <input type="number" id="htmlgen-start" min="0" placeholder="0" />
+                        </div>
+                        <div class="hider-input-group">
+                            <label for="htmlgen-end">끝</label>
+                            <input type="number" id="htmlgen-end" min="0" placeholder="끝" />
+                        </div>
+                    </div>
+                    
+                    <!-- 단어가리기 적용 여부 -->
+                    <div id="htmlgen-hider-toggle-group" class="hider-toggle-row hider-toggle-row-compact">
+                        <span class="hider-toggle-label">
+                            <span>단어가리기 적용</span>
+                            <small class="hider-toggle-desc">설정한 단어가리기 규칙 적용</small>
+                        </span>
+                        <label class="hider-toggle hider-toggle-sm">
+                            <input type="checkbox" id="htmlgen-apply-hider" checked />
+                            <span class="hider-toggle-slider"></span>
+                        </label>
+                    </div>
+                    
+                    <!-- 직접 입력 -->
+                    <div id="htmlgen-custom-group" class="hider-input-group" style="display: none;">
+                        <label for="htmlgen-custom-text">변환할 내용</label>
+                        <textarea id="htmlgen-custom-text" rows="5" placeholder="변환할 내용을 입력하세요..."></textarea>
+                    </div>
+                </div>
+                
+                <!-- 꾸미기 설정 -->
+                <div class="hider-section">
+                    <h4><i class="fa-solid fa-palette"></i> 꾸미기 설정</h4>
+                    
+                    <div class="hider-input-group">
+                        <label for="htmlgen-concept">꾸미기 컨셉</label>
+                        <textarea id="htmlgen-concept" rows="2" placeholder="예: 다크하고 세련된 느낌, 파스텔톤 귀여운 스타일..."></textarea>
+                        <small class="hider-hint">원하는 스타일/분위기를 자유롭게 설명하세요</small>
+                    </div>
+                    
+                    <div class="hider-input-group">
+                        <label for="htmlgen-profile">Connection Profile</label>
+                        <select id="htmlgen-profile">
+                            <option value="">기본 API 사용</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- 생성 버튼 -->
+                <div class="hider-section">
+                    <button id="htmlgen-generate-btn" class="hider-btn hider-btn-primary hider-btn-full">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> HTML 생성하기
+                    </button>
+                    
+                    <!-- 로딩 표시 -->
+                    <div id="htmlgen-loading" class="hider-loading" style="display: none;">
+                        <i class="fa-solid fa-spinner fa-spin"></i> AI가 HTML을 생성하는 중...
+                    </div>
+                </div>
+                
+                <!-- 결과 영역 -->
+                <div id="htmlgen-result" class="hider-section" style="display: none;">
+                    <div class="hider-result-header">
+                        <span><i class="fa-solid fa-code"></i> 생성된 HTML</span>
+                        <div class="hider-result-actions">
+                            <button id="htmlgen-copy-btn" class="hider-btn-icon" title="코드 복사">
+                                <i class="fa-solid fa-copy"></i>
+                            </button>
+                            <button id="htmlgen-preview-btn" class="hider-btn-icon" title="미리보기">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <pre id="htmlgen-code" class="hider-code-box"></pre>
+                </div>
+                
+                <!-- 미리보기 영역 -->
+                <div id="htmlgen-preview" class="hider-section" style="display: none;">
+                    <div class="hider-result-header">
+                        <span><i class="fa-solid fa-eye"></i> 미리보기</span>
+                        <button id="htmlgen-close-preview" class="hider-btn-icon" title="닫기">
+                            <i class="fa-solid fa-times"></i>
+                        </button>
+                    </div>
+                    <iframe id="htmlgen-preview-frame" sandbox="allow-same-origin" class="hider-preview-frame"></iframe>
+                </div>
+                
+            </div>
+            
+        </div>
+    </div>
+</div>
