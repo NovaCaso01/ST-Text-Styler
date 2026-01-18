@@ -6,7 +6,7 @@
     "js": "index.js",
     "css": "style.css",
     "author": "User",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "homePage": "",
     "auto_update": true,
     "description": "단어 가리기, AI 글꾸미기 등 텍스트 관련 다양한 기능을 제공합니다. 7가지 테마 지원."
